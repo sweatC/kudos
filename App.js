@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
 import RootNavigator from './navigation/root-navigator';
-import ListOfKudos from './components/list-of-kudos';
+import UserPatch from './components/user-patch';
 
 
 export default class App extends React.Component {
@@ -18,7 +18,7 @@ export default class App extends React.Component {
   	render() {
   		const data = [{key: 1, txt: "Tnak You"}, {key: 2, txt: "Thanks"}, {key:3, txt: "glhf next"}];
     	return(
-    		<ListOfKudos data={data}/>
+    		<UserPatch count={25}/>
       		//<RootNavigator screenProps={{state: this.state, setUser: this.setSource}}/>
       	);
   	}

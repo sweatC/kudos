@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Icon } from 'react-native-elements';
 import { 
 	StyleSheet, 
 	Text, 
@@ -17,10 +18,10 @@ export default class UserPatch extends Component {
 		    <View style={userPatchStyles.container}>
 		    	<Image style={userPatchStyles.img} source={{uri:'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg'}} />
 		    	<View style={userPatchStyles.text_wrapper}>
-		    		<Text style={userPatchStyles.name_txt}></Text>
-		    		<Text style={userPatchStyles.kudos_count_txt}></Text>
+		    		<Text style={userPatchStyles.name_txt}>Name Surname</Text>
+		    		<Text style={userPatchStyles.kudos_count_txt}>{`has ${this.props.count} kudos`}</Text>
 		    	</View>
-		    	<View style={userPatchStyles.arrow}></View>
+		    	<Icon style={userPatchStyles.ico} name='arrow-right' type='font-awesome' color='#8c9399'/>
 		    </View>
 			);
 	}
@@ -28,11 +29,33 @@ export default class UserPatch extends Component {
 
 const userPatchStyles = StyleSheet.create({
 	container: {
-
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		flexWrap:'wrap',
+		padding: '5%',
+		backgroundColor: '#e6e9ed'
 	}, 
-	img: {},
-	text_wrapper: {},
-	name_txt: {},
-	kudos_count_txt: {},
-	arrow: {}
+	img: {
+		width:70,
+    	height:70
+	},
+	text_wrapper: {
+		paddingTop: '2%',
+		marginLeft: '3%',
+		marginRight: '20%'
+	},
+	name_txt: {
+  		fontSize: 16,
+		fontFamily: 'Roboto',
+		fontWeight: '100'
+	},
+	kudos_count_txt: {
+  		fontSize: 16,
+  		color: '#8c9399',
+		fontFamily: 'Roboto',
+		fontWeight: '100'
+	},
+	ico: {
+		marginLeft: '20%'
+	}
 })
