@@ -9,17 +9,17 @@ export default class ListOfKudos extends Component {
 	}
 
 	render() {
-		return(
+		return (
 			<View style={listOfKudosStyles.container}>
-				<FlatList data={this.props.kudosData} 
-				renderItem={({item}) => <Kudo txt={item.txt} img={item.img}/>}/>
+				<FlatList data={this.props.kudosData}
+					renderItem={({ item }) => <Kudo txt={item.txt} img={item.img} />} />
 			</View>
-			);
+		);
 	}
 }
 
 const listOfKudosStyles = StyleSheet.create({
 	container: {
-	   flex: 1
+		flex: 1
 	}
 });

@@ -15,9 +15,9 @@ const ProfileTabNav = TabNavigator({
 		screen: ProfileScreen
 	}
 },
-{
-  tabBarPosition: 'bottom',
-  animationEnabled: true
-});
+	{
+		tabBarPosition: 'bottom',
+		animationEnabled: true
+	});
 
 export default ProfileTabNav;

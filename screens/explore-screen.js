@@ -6,8 +6,8 @@ import ListOfKudos from '../components/list-of-kudos';
 
 export default class ExploreScreen extends Component {
 	render() {
-		return(
+		return (
 			<ListOfKudos kudosData={kudosData} />
-			);
+		);
 	}
 }

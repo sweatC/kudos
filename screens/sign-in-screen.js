@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { 
-	StyleSheet, 
-	Text, 
+import {
+	StyleSheet,
+	Text,
 	View,
 	TextInput,
 	Alert,
@@ -18,49 +18,50 @@ export default class SignInScreen extends Component {
 		};
 	}
 	render() {
-		return(
-	      <View style={signInScreenStyles.container}>
-		       <View style={signInScreenStyles.inputs}>
-			        <TextInput
-			          style={signInScreenStyles.input}
-			          placeholder="Email"
-			          onChangeText={email => this.setState({email})}
-			        />
-			        <TextInput
-			          style={signInScreenStyles.input}
-			          placeholder="Password"
-			          onChangeText={password => this.setState({password})}
-			        />
-		        </View>
-		      	<View style={signInScreenStyles.sign}>
-		      		<View style={signInScreenStyles.btn}>
-		      			<Text style={signInScreenStyles.btn_txt}
-		      			 onPress={() => this.signIn()}>Sign in</Text>
-		      		</View>
-		      	</View>
-	      </View>
+		return (
+			<View style={signInScreenStyles.container}>
+				<View style={signInScreenStyles.inputs}>
+					<TextInput
+						style={signInScreenStyles.input}
+						placeholder="Email"
+						onChangeText={email => this.setState({ email })}
+					/>
+					<TextInput
+						secureTextEntry={true}
+						style={signInScreenStyles.input}
+						placeholder="Password"
+						onChangeText={password => this.setState({ password })}
+					/>
+				</View>
+				<View style={signInScreenStyles.sign}>
+					<View style={signInScreenStyles.btn}>
+						<Text style={signInScreenStyles.btn_txt}
+							onPress={() => this.signIn()}>Sign in</Text>
+					</View>
+				</View>
+			</View>
 		);
 	}
 
 	signIn() {
-	  AsyncStorage.getItem("user").then((json) => {
-	    try {
-	      const user = JSON.parse(json);
-	      if(this.state.email == user.email &&
-	      	this.state.password == user.password) {
-	      	this.props.navigation.navigate('UserProfile', user);
-	      }
-	    } catch(e) {}
-	  })
+		AsyncStorage.getItem("user").then((json) => {
+			try {
+				const user = JSON.parse(json);
+				if (this.state.email == user.email &&
+					this.state.password == user.password) {
+					this.props.navigation.navigate('UserProfile', user);
+				}
+			} catch (e) { }
+		})
 	}
 }
 
 const signInScreenStyles = StyleSheet.create({
 	container: {
-	    flex: 1,
-	    flexDirection: 'column',
-	    justifyContent: 'center',
-	    alignItems: 'center'
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	inputs: {
 		paddingTop: 70

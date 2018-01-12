@@ -5,14 +5,14 @@ import ProfileTabNav from '../navigation/profile-tab-navigator'
 
 export default class UserProfileScreen extends Component {
 	static navigationOptions = {
-	  title: 'Profile',
+		title: 'Profile',
 	};
 	constructor(props) {
 		super(props);
 	}
 	render() {
-		return(
-			<ProfileTabNav screenProps={{state: this.props.navigation.state.params}} />
-			);
+		return (
+			<ProfileTabNav screenProps={{ state: this.props.navigation.state.params }} />
+		);
 	}
 }

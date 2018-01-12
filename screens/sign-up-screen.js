@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { 
-	StyleSheet, 
-	Text, 
+import {
+	StyleSheet,
+	Text,
 	View,
 	TextInput,
 	Alert
@@ -25,72 +25,73 @@ export default class SignUpScreen extends Component {
 		}
 	}
 	render() {
-		return(
-	      <View style={signUpScreenStyles.container}>
-		       <View style={signUpScreenStyles.inputs}>
-			        <TextInput
-			          style={signUpScreenStyles.input}
-			          placeholder="First Name"
-			          onChangeText={fName => this.cFirstName(fName)}
-			        />
-			        <TextInput
-			          style={signUpScreenStyles.input}
-			          placeholder="Last Name"
-			          onChangeText={lName => this.cLastName(lName)}
-			        />
-			        <TextInput
-			          style={signUpScreenStyles.input}
-			          placeholder="Email"
-			          onChangeText={email => this.cEmail(email)}
-			        />
-			        <TextInput
-			          style={signUpScreenStyles.input}
-			          placeholder="Password"
-			          onChangeText={password => this.cPassword(password)}
-			        />
-		        </View>
-		      	<View style={signUpScreenStyles.sign}>
-		      		<View style={signUpScreenStyles.btn}>
-		      			<Text style={signUpScreenStyles.btn_txt}
-		      			 onPress={() => this.signUp()}>Sign up</Text>
-		      		</View>
-		      	</View>
-	      </View>
+		return (
+			<View style={signUpScreenStyles.container}>
+				<View style={signUpScreenStyles.inputs}>
+					<TextInput
+						style={signUpScreenStyles.input}
+						placeholder="First Name"
+						onChangeText={fName => this.cFirstName(fName)}
+					/>
+					<TextInput
+						style={signUpScreenStyles.input}
+						placeholder="Last Name"
+						onChangeText={lName => this.cLastName(lName)}
+					/>
+					<TextInput
+						style={signUpScreenStyles.input}
+						placeholder="Email"
+						onChangeText={email => this.cEmail(email)}
+					/>
+					<TextInput
+						secureTextEntry={true}
+						style={signUpScreenStyles.input}
+						placeholder="Password"
+						onChangeText={password => this.cPassword(password)}
+					/>
+				</View>
+				<View style={signUpScreenStyles.sign}>
+					<View style={signUpScreenStyles.btn}>
+						<Text style={signUpScreenStyles.btn_txt}
+							onPress={() => this.signUp()}>Sign up</Text>
+					</View>
+				</View>
+			</View>
 		);
 	}
 
 	cFirstName(fName) {
-		if(checkFirstName(fName)) {
-			this.setState({firstName: fName})
+		if (checkFirstName(fName)) {
+			this.setState({ firstName: fName })
 		}
 	}
 
 	cLastName(lName) {
-		if(checkLastName(lName)) {
-			this.setState({lastName: lName})
-		}		
+		if (checkLastName(lName)) {
+			this.setState({ lastName: lName })
+		}
 	}
 
 	cEmail(email) {
-		if(checkEmail(email)) {
-			this.setState({email: email})
-		}	
+		if (checkEmail(email)) {
+			this.setState({ email: email })
+		}
 	}
 
 	cPassword(pass) {
-		if(checkPassword(pass)) {
-			this.setState({password: pass})
-		}		
+		if (checkPassword(pass)) {
+			this.setState({ password: pass })
+		}
 	}
 
 	signUp() {
 		const errStates = [];
-		for(p in this.state) {
-			if(this.state[p] == '') { 
+		for (p in this.state) {
+			if (this.state[p] == '') {
 				errStates.push(p);
 			}
 		}
-		if(errStates.length == 0) {
+		if (errStates.length == 0) {
 			const copy = Object.assign({}, this.state);
 			this.props.screenProps.setUser(copy);
 			this.props.navigation.navigate('UserProfile', copy);
@@ -103,10 +104,10 @@ export default class SignUpScreen extends Component {
 
 const signUpScreenStyles = StyleSheet.create({
 	container: {
-	    flex: 1,
-	    flexDirection: 'column',
-	    justifyContent: 'center',
-	    alignItems: 'center'
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	inputs: {
 		paddingTop: 70

@@ -15,14 +15,14 @@ export default class App extends React.Component {
 		this.setSource = this.setSource.bind(this);
 	}
 
-  	render() {
-    	return(
-      		<RootNavigator screenProps={{state: this.state, setUser: this.setSource}}/>
-      	);
+	render() {
+		return (
+			<RootNavigator screenProps={{ state: this.state, setUser: this.setSource }} />
+		);
 	}
-	  
+
 	setSource(user) {
-		this.setState({user});
+		this.setState({ user });
 		AsyncStorage.setItem("user", JSON.stringify(user));
 	}
 }

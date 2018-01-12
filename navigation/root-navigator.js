@@ -8,27 +8,27 @@ import SignInScreen from '../screens/sign-in-screen';
 const RootNavigator = StackNavigator({
 	Welcome: {
 		screen: WelcomeScreen,
-    	navigationOptions: {
-      		title: 'Welcome'
-    	}
+		navigationOptions: {
+			title: 'Welcome'
+		}
 	},
 	SignIn: {
 		screen: SignInScreen,
-    	navigationOptions: {
-      		title: 'Sign in'
-    	}
+		navigationOptions: {
+			title: 'Sign in'
+		}
 	},
 	SignUp: {
 		screen: SignUpScreen,
-    	navigationOptions: {
-      		title: 'Sign up'
-    	}
+		navigationOptions: {
+			title: 'Sign up'
+		}
 	},
 	UserProfile: {
 		screen: UserProfileScreen,
-		navigationOptions: ({navigation}) => ({
-	      title: `${navigation.state.params.firstName}'s Profile`,
-	    })
+		navigationOptions: ({ navigation }) => ({
+			title: `${navigation.state.params.firstName}'s Profile`,
+		})
 	}
 });
 
