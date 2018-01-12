@@ -11,7 +11,8 @@ export default class ListOfKudos extends Component {
 	render() {
 		return(
 			<View style={listOfKudosStyles.container}>
-				<FlatList data={this.props.data} renderItem={({item}) => <Kudo txt={item.txt}/>}/>
+				<FlatList data={this.props.kudosData} 
+				renderItem={({item}) => <Kudo txt={item.txt} img={item.img}/>}/>
 			</View>
 			);
 	}

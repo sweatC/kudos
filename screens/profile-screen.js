@@ -5,6 +5,8 @@ import {
 	View, 
 	Image
 } from 'react-native';
+import { kudosData } from '../data/test-data';
+import ListOfKudos from '../components/list-of-kudos';
 
 
 export default class ProfileScreen extends Component {
@@ -13,17 +15,16 @@ export default class ProfileScreen extends Component {
 		this.getFullName = this.getFullName.bind(this);
 	}
 	render() {
-		/* DEV:  name*/
-		const name = "Valeera Nightmare"
 		return(
 	      <View style={profileScreenStyles.container}>
 		    <View style={profileScreenStyles.header}>
 		    	<Image style={profileScreenStyles.img} source={{uri:'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg'}} />
-		    	<Text style={profileScreenStyles.header_txt}>{name/*this.getFullName()*/}</Text>
+		    	<Text style={profileScreenStyles.header_txt}>{this.getFullName()}</Text>
 		    </View>
 		    <View style={profileScreenStyles.recieved_kudos}>
 		    	<Text style={profileScreenStyles.recieved_kudos_txt}>Recieved Kudos</Text>
 		    </View>
+			<ListOfKudos kudosData={kudosData}/>
 	      </View>
 		);
 	}

@@ -24,6 +24,6 @@ export default class ListOfUsersPatches extends Component {
 const listOfUsersPatchesStyles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: '5%'
+        marginTop: '10%'
     }
 });

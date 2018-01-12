@@ -15,7 +15,7 @@ export default class Kudo extends Component {
 	render() {
 		return(
 			<View style={kudoStyles.container}>
-				<Image style={kudoStyles.img} source={{uri: 'https://cdn-media-1.lifehack.org/wp-content/files/2013/11/60-Things-To-Be-Thankful-For-In-Life.jpg'}}/>
+				<Image style={kudoStyles.img} source={this.props.img}/>
 				<Text style={kudoStyles.txt}>{this.props.txt}</Text>
 			</View>
 			);

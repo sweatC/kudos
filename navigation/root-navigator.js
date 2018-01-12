@@ -6,7 +6,7 @@ import SignInScreen from '../screens/sign-in-screen';
 
 
 const RootNavigator = StackNavigator({
-	/*Welcome: {
+	Welcome: {
 		screen: WelcomeScreen,
     	navigationOptions: {
       		title: 'Welcome'
@@ -23,7 +23,7 @@ const RootNavigator = StackNavigator({
     	navigationOptions: {
       		title: 'Sign up'
     	}
-	},*/
+	},
 	UserProfile: {
 		screen: UserProfileScreen,
 		navigationOptions: ({navigation}) => ({
