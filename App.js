@@ -21,19 +21,19 @@ export default class App extends React.Component {
 				{ 
 					key: 1, 
 					img: { uri: 'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg' },
-					fullname: "Rexar Agro", 
+					fullName: "Rexar Agro", 
 					count: 23	
 				},
 				{
 					key: 2,
 					img: { uri: 'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg' },
-					fullname: "Valeera Wise",
+					fullName: "Valeera Wise",
 					count: 74
 				},
 				{
 					key: 3,
 					img: { uri: 'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg' },
-					fullname: "Guldan Windless",
+					fullName: "Guldan Windless",
 					count: 11
 				}
 			]
