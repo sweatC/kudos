@@ -16,9 +16,9 @@ export default class UserPatch extends Component {
 	render() {
 		return(
 		    <View style={userPatchStyles.container}>
-		    	<Image style={userPatchStyles.img} source={{uri:'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg'}} />
+		    	<Image style={userPatchStyles.img} source={this.props.img} />
 		    	<View style={userPatchStyles.text_wrapper}>
-		    		<Text style={userPatchStyles.name_txt}>Name Surname</Text>
+		    		<Text style={userPatchStyles.name_txt}>{this.props.fullName}</Text>
 		    		<Text style={userPatchStyles.kudos_count_txt}>{`has ${this.props.count} kudos`}</Text>
 		    	</View>
 		    	<Icon style={userPatchStyles.ico} name='arrow-right' type='font-awesome' color='#8c9399'/>
