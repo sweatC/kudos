@@ -33,7 +33,7 @@ const userPatchStyles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		flexWrap:'wrap',
 		padding: '5%',
-		backgroundColor: '#e6e9ed',
+		backgroundColor: 'lightgrey',
 		marginBottom: '5%'
 	}, 
 	img: {

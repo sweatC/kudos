@@ -27,7 +27,7 @@ const RootNavigator = StackNavigator({
 	UserProfile: {
 		screen: UserProfileScreen,
 		navigationOptions: ({navigation}) => ({
-	      title: "My Profile"//`${navigation.state.params.firstName}'s Profile`,
+	      title: `${navigation.state.params.firstName}'s Profile`,
 	    })
 	}
 });

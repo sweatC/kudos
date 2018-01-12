@@ -12,7 +12,7 @@ export default class UserProfileScreen extends Component {
 	}
 	render() {
 		return(
-			<ProfileTabNav /*screenProps={{state: this.props.navigation.state.params}}*/ />
+			<ProfileTabNav screenProps={{state: this.props.navigation.state.params}} />
 			);
 	}
 }

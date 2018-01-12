@@ -20,7 +20,6 @@ export default class ListOfKudos extends Component {
 
 const listOfKudosStyles = StyleSheet.create({
 	container: {
-	   flex: 1,
-	   paddingTop: '5%'
+	   flex: 1
 	}
 });

@@ -6,7 +6,7 @@ import ListOfUsersPatches from '../components/list-of-users-patches'
 export default class UsersScreen extends Component {
 	render() {
 		return(
-			<ListOfUsersPatches data={patchesData} />
+			<ListOfUsersPatches patchesData={patchesData} />
 			);
 	}
 }

@@ -11,7 +11,7 @@ export default class ListOfUsersPatches extends Component {
     render() {
         return (
             <View style={listOfUsersPatchesStyles.container}>
-                <FlatList data={this.props.data} 
+                <FlatList data={this.props.patchesData} 
                 renderItem={({ item }) => <UserPatch img={item.img}
                 fullName={item.fullName} 
                 count={item.count}  />} 
@@ -23,7 +23,6 @@ export default class ListOfUsersPatches extends Component {
 
 const listOfUsersPatchesStyles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: '10%'
+        flex: 1
     }
 });
