@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome screen renders without crashing 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "flex": 4,
+        "resizeMode": "center",
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "flex": 2,
+        "marginTop": 40,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "hsla(52, 75%, 6%, 0.91)",
+          "fontFamily": "Roboto",
+          "fontSize": 28,
+          "fontWeight": "400",
+          "textAlign": "center",
+        }
+      }
+    >
+      Kudos
+    </Text>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "hsla(52, 75%, 6%, 0.91)",
+          "fontFamily": "Roboto",
+          "fontSize": 14,
+          "fontWeight": "100",
+          "marginTop": 2,
+          "textAlign": "center",
+        }
+      }
+    >
+      Your small gestures grtitude
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 3,
+        "marginTop": 15,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "hsla(52, 75%, 6%, 0.91)",
+          "borderRadius": 5,
+          "height": 45,
+          "width": 250,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        onPress={[Function]}
+        style={
+          Object {
+            "color": "#fff",
+            "marginTop": 12,
+            "textAlign": "center",
+          }
+        }
+      >
+        Sign in
+      </Text>
+    </View>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      onPress={[Function]}
+      style={
+        Object {
+          "color": "hsla(52, 75%, 6%, 0.91)",
+          "fontFamily": "Roboto",
+          "fontSize": 10,
+          "marginTop": 7,
+          "textAlign": "center",
+        }
+      }
+    >
+      Don't have an account? Sign up
+    </Text>
+  </View>
+</View>
+`;
