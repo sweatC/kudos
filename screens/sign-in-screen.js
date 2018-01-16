@@ -43,16 +43,23 @@ export default class SignInScreen extends Component {
 		);
 	}
 
-	signIn() {
-		AsyncStorage.getItem("user").then((json) => {
-			try {
-				const user = JSON.parse(json);
-				if (this.state.email == user.email &&
-					this.state.password == user.password) {
-					this.props.navigation.navigate('UserProfile', user);
-				}
-			} catch (e) { }
-		})
+	async signIn() {
+		const json = await AsyncStorage.getItem("user");
+		const user = await JSON.parse(json);
+		this.props.screenProps.firebase.auth()
+			.signInWithEmailAndPassword(user.email, user.password)
+			.then(() => {
+				const navigation = this.props.navigation;
+				navigation.navigate('UserProfile', 
+					{ ...user, 
+						firebase: this.props.screenProps.firebase
+					});
+			})
+			.catch(error => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				Alert.alert(`${errorMessage}: ${errorCode}`);
+			});
 	}
 }
 

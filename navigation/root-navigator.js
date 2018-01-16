@@ -1,8 +1,10 @@
+import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 import WelcomeScreen from '../screens/welcome-screen';
 import UserProfileScreen from '../screens/user-profile-screen';
 import SignUpScreen from '../screens/sign-up-screen';
 import SignInScreen from '../screens/sign-in-screen';
+import SignOut from '../components/sign-out';
 
 
 const RootNavigator = StackNavigator({
@@ -26,9 +28,14 @@ const RootNavigator = StackNavigator({
 	},
 	UserProfile: {
 		screen: UserProfileScreen,
-		navigationOptions: ({ navigation }) => ({
-			title: `${navigation.state.params.firstName}'s Profile`,
-		})
+		navigationOptions: ({ navigation }) => {
+			const firstName = navigation.state.params.firstName;
+			const firebase = navigation.state.params.firebase;
+			return {
+				title: `${firstName}'s Profile`,
+				headerLeft: (<SignOut navigator={navigation} firebase={firebase} />)
+			}
+		}
 	}
 });
 
