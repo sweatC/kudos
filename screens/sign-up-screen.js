@@ -96,7 +96,8 @@ export default class SignUpScreen extends Component {
 			this.props.screenProps.firebase.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.password)
 				.then(() => {
-					this.props.screenProps.setUser({...this.state});
+					this.props.screenProps.setUser({ ...this.state, 
+						id: this.props.screenProps.firebase.auth().currentUser.uid});
 					this.props.navigation.navigate('UserProfile',
 					{ ...this.state, firebase: this.props.screenProps.firebase });
 				})

@@ -28,7 +28,7 @@ export default class SignOut extends Component {
                     NavigationActions.navigate({ routeName: 'Welcome' })
                 ]
             })
-            this.props.navigator.dispatch(resetAction)
+            this.props.navigator.dispatch(resetAction);
         })
         .catch(error => Alert.alert(`${error.message}: ${error.code}`))
     }

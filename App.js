@@ -28,6 +28,14 @@ export default class App extends React.Component {
 
 	setSource(user) {
 		this.setState({ user });
-		AsyncStorage.setItem("user", JSON.stringify(user));
+		this.firebase.database().ref(user.id).set({
+			userInfo: {
+				...user
+			},
+			userKudos: {},
+			kudos: {},
+			users: {}
+		})
+		//AsyncStorage.setItem("user", JSON.stringify(user));
 	}
 }
