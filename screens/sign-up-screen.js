@@ -89,7 +89,7 @@ export default class SignUpScreen extends Component {
 	renderCurrentState() {
 		if (this.state.loading) {
 			return (
-				<View style={signUpScreenStyles.loader}>
+				<View>
 					<ActivityIndicator size='large' color="#0000ff" />
 				</View>
 			)
@@ -127,7 +127,6 @@ export default class SignUpScreen extends Component {
 				</View>
 			</View>
 		)
-
 	}
 }
 
@@ -165,8 +164,5 @@ const signUpScreenStyles = StyleSheet.create({
 		color: '#fff',
 		textAlign: 'center',
 		marginTop: 12
-	},
-	loader: {
-		flex: 1
 	}
 });

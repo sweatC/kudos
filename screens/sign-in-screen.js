@@ -5,7 +5,7 @@ import {
 	View,
 	TextInput,
 	Alert,
-	AsyncStorage
+	ActivityIndicator
 } from 'react-native';
 
 
@@ -14,13 +14,51 @@ export default class SignInScreen extends Component {
 		super(props);
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			loading: false
 		};
 		this.signIn = this.signIn.bind(this);
+		this.renderCurrentState = this.renderCurrentState.bind(this);
 	}
 	render() {
 		return (
 			<View style={signInScreenStyles.container}>
+				{this.renderCurrentState()}
+			</View>
+		);
+	}
+	signIn() {
+		this.setState({loading: true});
+		const { firebase } = this.props.screenProps;
+		firebase.auth()
+			.signInWithEmailAndPassword(this.state.email, this.state.password)
+			.then(() => {
+				firebase.database()
+					.ref(firebase.auth().currentUser.uid)
+					.once('value').then(snapshot => {
+						const user =  snapshot.val().userInfo;
+						const { navigation } = this.props;
+						navigation.navigate('UserProfile',
+						{
+							...user,
+							firebase
+						});
+					});
+			})
+			.catch(error => {
+				Alert.alert(`${error.message}: ${error.code}`);
+			});
+	}
+	renderCurrentState() {
+		if (this.state.loading) {
+			return (
+				<View>
+					<ActivityIndicator size='large' color="#0000ff" />
+				</View>
+			)
+		}
+		return (
+			<View>
 				<View style={signInScreenStyles.inputs}>
 					<TextInput
 						style={signInScreenStyles.input}
@@ -41,29 +79,7 @@ export default class SignInScreen extends Component {
 					</View>
 				</View>
 			</View>
-		);
-	}
-
-	signIn() {
-		const { firebase } = this.props.screenProps;
-		firebase.auth()
-			.signInWithEmailAndPassword(this.state.email, this.state.password)
-			.then(() => {
-				firebase.database()
-					.ref(firebase.auth().currentUser.uid)
-					.once('value').then(snapshot => {
-						const user =  snapshot.val().userInfo;
-						const { navigation } = this.props;
-						navigation.navigate('UserProfile',
-						{
-							...user,
-							firebase
-						});
-					});
-			})
-			.catch(error => {
-				Alert.alert(`${error.message}: ${error.code}`);
-			});
+		)
 	}
 }
 
