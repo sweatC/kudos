@@ -4,7 +4,8 @@ import {
 	Text,
 	View,
 	TextInput,
-	Alert
+	Alert,
+	ActivityIndicator
 } from 'react-native';
 import {
 	checkFirstName,
@@ -19,16 +20,82 @@ export default class SignUpScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			firstName: '',
-			lastName: '',
-			email: '',
-			password: ''
+			...this.props.screenProps.state,
+			loading: false
 		}
 		this.signUp = this.signUp.bind(this);
+		this.renderCurrentState = this.renderCurrentState.bind(this);
 	}
 	render() {
 		return (
 			<View style={signUpScreenStyles.container}>
+				{this.renderCurrentState()}
+			</View>
+		);
+	}
+
+	cFirstName(fName) {
+		if (checkFirstName(fName)) {
+			this.setState({ firstName: fName })
+		}
+	}
+
+	cLastName(lName) {
+		if (checkLastName(lName)) {
+			this.setState({ lastName: lName })
+		}
+	}
+
+	cEmail(email) {
+		if (checkEmail(email)) {
+			this.setState({ email: email })
+		}
+	}
+
+	cPassword(pass) {
+		if (checkPassword(pass)) {
+			this.setState({ password: pass })
+		}
+	}
+
+	signUp() {
+		this.setState({loading: true});
+		const errStates = [];
+		for (p in this.state) {
+			if (this.state[p] == '') {
+				errStates.push(p);
+			}
+		}
+		if (errStates.length == 0) {
+			const { firebase, setUser } = this.props.screenProps;
+			firebase.auth()
+				.createUserWithEmailAndPassword(this.state.email, this.state.password)
+				.then(() => {
+					setUser({ ...this.state, 
+						id: firebase.auth().currentUser.uid});
+					const { navigation } = this.props;
+					navigation.navigate('UserProfile',
+					{ ...this.state, firebase });
+				})
+				.catch(error => {
+					Alert.alert(`${error.message}: ${error.code}`);
+				});
+		}
+		else {
+			Alert.alert(`Check out ${errStates} fields!`);
+		}
+	}
+
+	renderCurrentState() {
+		if (this.state.loading) {
+			return (
+				<View style={signUpScreenStyles.loader}>
+					<ActivityIndicator size='large' color="#0000ff" />
+				</View>
+			)
+		}
+		return(
+			<View>
 				<View style={signUpScreenStyles.inputs}>
 					<TextInput
 						style={signUpScreenStyles.input}
@@ -59,58 +126,8 @@ export default class SignUpScreen extends Component {
 					</View>
 				</View>
 			</View>
-		);
-	}
+		)
 
-	cFirstName(fName) {
-		if (checkFirstName(fName)) {
-			this.setState({ firstName: fName })
-		}
-	}
-
-	cLastName(lName) {
-		if (checkLastName(lName)) {
-			this.setState({ lastName: lName })
-		}
-	}
-
-	cEmail(email) {
-		if (checkEmail(email)) {
-			this.setState({ email: email })
-		}
-	}
-
-	cPassword(pass) {
-		if (checkPassword(pass)) {
-			this.setState({ password: pass })
-		}
-	}
-
-	signUp() {
-		const errStates = [];
-		for (p in this.state) {
-			if (this.state[p] == '') {
-				errStates.push(p);
-			}
-		}
-		if (errStates.length == 0) {
-			const { firebase, setUser } = this.props.screenProps;
-			firebase.auth()
-				.createUserWithEmailAndPassword(this.state.email, this.state.password)
-				.then(() => {
-					setUser({ ...this.state, 
-						id: firebase.auth().currentUser.uid});
-					const { navigation } = this.props;
-					navigation.navigate('UserProfile',
-					{ ...this.state, firebase });
-				})
-				.catch(error => {
-					Alert.alert(`${error.message}: ${error.code}`);
-				});
-		}
-		else {
-			Alert.alert(`Check out ${errStates} fields!`);
-		}
 	}
 }
 
@@ -148,5 +165,8 @@ const signUpScreenStyles = StyleSheet.create({
 		color: '#fff',
 		textAlign: 'center',
 		marginTop: 12
+	},
+	loader: {
+		flex: 1
 	}
 });
