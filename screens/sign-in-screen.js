@@ -44,8 +44,6 @@ export default class SignInScreen extends Component {
 	}
 
 	signIn() {
-		//const json = await AsyncStorage.getItem("user");
-		//const user = await JSON.parse(json);
 		this.props.screenProps.firebase.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.then(() => {

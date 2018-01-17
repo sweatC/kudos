@@ -8,6 +8,9 @@ import RootNavigator from './navigation/root-navigator';
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
+		console.ignoredYellowBox = [
+			'Setting a timer'
+		];
 		this.state = {
 			firstName: '',
 			lastName: '',
@@ -36,6 +39,5 @@ export default class App extends React.Component {
 			kudos: {},
 			users: {}
 		})
-		//AsyncStorage.setItem("user", JSON.stringify(user));
 	}
 }
