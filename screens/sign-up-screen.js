@@ -24,6 +24,7 @@ export default class SignUpScreen extends Component {
 			email: '',
 			password: ''
 		}
+		this.signUp = this.signUp.bind(this);
 	}
 	render() {
 		return (
@@ -93,18 +94,18 @@ export default class SignUpScreen extends Component {
 			}
 		}
 		if (errStates.length == 0) {
-			this.props.screenProps.firebase.auth()
+			const { firebase, setUser } = this.props.screenProps;
+			firebase.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.password)
 				.then(() => {
-					this.props.screenProps.setUser({ ...this.state, 
-						id: this.props.screenProps.firebase.auth().currentUser.uid});
-					this.props.navigation.navigate('UserProfile',
-					{ ...this.state, firebase: this.props.screenProps.firebase });
+					setUser({ ...this.state, 
+						id: firebase.auth().currentUser.uid});
+					const { navigation } = this.props;
+					navigation.navigate('UserProfile',
+					{ ...this.state, firebase });
 				})
 				.catch(error => {
-					const errorCode = error.code;
-					const errorMessage = error.message;
-					Alert.alert(`${errorMessage}: ${errorCode}`);
+					Alert.alert(`${error.message}: ${error.code}`);
 				});
 		}
 		else {

@@ -16,6 +16,7 @@ export default class SignInScreen extends Component {
 			email: '',
 			password: ''
 		};
+		this.signIn = this.signIn.bind(this);
 	}
 	render() {
 		return (
@@ -44,25 +45,24 @@ export default class SignInScreen extends Component {
 	}
 
 	signIn() {
-		this.props.screenProps.firebase.auth()
+		const { firebase } = this.props.screenProps;
+		firebase.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.then(() => {
-				this.props.screenProps.firebase.database()
-					.ref(this.props.screenProps.firebase.auth().currentUser.uid)
+				firebase.database()
+					.ref(firebase.auth().currentUser.uid)
 					.once('value').then(snapshot => {
 						const user =  snapshot.val().userInfo;
-						const navigation = this.props.navigation;
+						const { navigation } = this.props;
 						navigation.navigate('UserProfile',
 						{
 							...user,
-							firebase: this.props.screenProps.firebase
+							firebase
 						});
 					});
 			})
 			.catch(error => {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				Alert.alert(`${errorMessage}: ${errorCode}`);
+				Alert.alert(`${error.message}: ${error.code}`);
 			});
 	}
 }
