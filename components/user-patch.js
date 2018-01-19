@@ -4,26 +4,33 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Image
+	Image,
+	Alert
 } from 'react-native';
 
 
 export default class UserPatch extends Component {
 	constructor(props) {
 		super(props);
+		this.sendKudo = this.sendKudo.bind(this);
 	}
 
 	render() {
 		return (
 			<View style={userPatchStyles.container}>
-				<Image style={userPatchStyles.img} source={this.props.img} />
+				<Image style={userPatchStyles.img} /*source={this.props.img}*/ />
 				<View style={userPatchStyles.text_wrapper}>
 					<Text style={userPatchStyles.name_txt}>{this.props.fullName}</Text>
 					<Text style={userPatchStyles.kudos_count_txt}>{`has ${this.props.count} kudos`}</Text>
 				</View>
-				<Icon style={userPatchStyles.ico} name='arrow-right' type='font-awesome' color='#8c9399' />
+				<Icon onPress={() => this.sendKudo(this)}
+				style={userPatchStyles.ico} name='arrow-right' type='font-awesome' color='#8c9399' />
 			</View>
 		);
+	}
+
+	sendKudo(reciever) {
+		Alert.alert(reciever.props.usr)
 	}
 }
 

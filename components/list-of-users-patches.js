@@ -12,9 +12,9 @@ export default class ListOfUsersPatches extends Component {
         return (
             <View style={listOfUsersPatchesStyles.container}>
                 <FlatList data={this.props.patchesData}
-                    renderItem={({ item }) => <UserPatch img={item.img}
-                        fullName={item.fullName}
-                        count={item.count} />}
+                    renderItem={({ item }) => <UserPatch usr={item}/*img={item.img}*/
+                        fullName={`${item.firstName} ${item.lastName}`}
+                        count={20} />}
                 />
             </View>
         );

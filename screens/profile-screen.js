@@ -23,8 +23,8 @@ export default class ProfileScreen extends Component {
 				</View>
 				<View style={profileScreenStyles.recieved_kudos}>
 					<Text style={profileScreenStyles.recieved_kudos_txt}>Recieved Kudos</Text>
-					<ListOfKudos kudosData={kudosData} />
 				</View>
+				<ListOfKudos kudosData={kudosData} />
 			</View>
 		);
 	}

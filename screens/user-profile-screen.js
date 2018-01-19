@@ -4,9 +4,6 @@ import ProfileTabNav from '../navigation/profile-tab-navigator'
 
 
 export default class UserProfileScreen extends Component {
-	static navigationOptions = {
-		title: 'Profile',
-	};
 	constructor(props) {
 		super(props);
 	}
