@@ -1,7 +1,7 @@
 import { TabNavigator } from 'react-navigation';
-import ExploreScreen from '../screens/explore-screen'
-import UsersScreen from '../screens/users-screen'
-import ProfileScreen from '../screens/profile-screen'
+import ExploreScreen from '../screens/explore-screen';
+import ProfileScreen from '../screens/profile-screen';
+import UsersNavigator from './users-stack-navigator';
 
 
 const ProfileTabNav = TabNavigator({
@@ -9,7 +9,7 @@ const ProfileTabNav = TabNavigator({
 		screen: ExploreScreen
 	},
 	Users: {
-		screen: UsersScreen
+		screen: UsersNavigator
 	},
 	Profile: {
 		screen: ProfileScreen
