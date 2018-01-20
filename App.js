@@ -33,7 +33,11 @@ export default class App extends React.Component {
 		this.setState({ user });
 		this.firebase.database().ref(user.id).set({
 			userInfo: {
-				...user
+				id: user.id,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				email: user.email,
+				password: user.password
 			},
 			userKudos: {},
 			kudos: {},

@@ -66,7 +66,7 @@ export default class SignUpScreen extends Component {
 				errStates.push(p);
 			}
 		}
-		if (errStates.length == 0) {
+		if (errStates.length < 2) { // 1 cos loading
 			const { firebase, setUser } = this.props.screenProps;
 			firebase.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.password)
