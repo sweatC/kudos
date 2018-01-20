@@ -6,7 +6,9 @@ import {
     Text,
     View,
     Image,
-    TextInput
+    TextInput,
+    Dimensions,
+    ActivityIndicator
 } from 'react-native';
 
 
@@ -14,44 +16,62 @@ export default class SendKudoScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: null
+            image: null,
+            loading: false
         }
         this.pickImage = this.pickImage.bind(this);
+        this.renderCurrentState = this.renderCurrentState.bind(this);
     }
     render() {
         return (
             <View style={sendKudoScreenStyles.container}>
+                {this.renderCurrentState()}
+            </View>
+        );
+    }
+
+    renderCurrentState() {
+        if(this.state.loading) {
+            return(
+                <View>
+                    <ActivityIndicator size='large' color="#0000ff" />
+                </View>
+            )
+        }
+        return(
+            <View>
                 <View style={sendKudoScreenStyles.header}>
                     <Image style={sendKudoScreenStyles.img} />
                     <Text>{this.props.name}</Text>
                 </View>
-                <Image style={sendKudoScreenStyles.img_preview}
-                    source={{ uri: this.state.image }} />
                 <View style={sendKudoScreenStyles.main}>
+                    <Image style={sendKudoScreenStyles.img_preview}
+                        source={{ uri: this.state.image }} />
                     <View style={sendKudoScreenStyles.take_photo_btn}>
                         <Text style={sendKudoScreenStyles.take_photo_btn_txt}
-                                onPress={() => this.pickImage()}>
-                         Take a Photo</Text>
+                            onPress={() => this.pickImage()}>
+                            Take a Photo</Text>
                     </View>
                     <TextInput multiline={true} numberOfLines={10}
-                     placeholder="Your thankful message" />
+                        placeholder="Your thankful message" />
                     <View style={sendKudoScreenStyles.send_btn}>
                         <Icon name='sc-telegram' type='evilicon'
                             color='#517fa4' size={48} />
                     </View>
                 </View>
             </View>
-        );
+        )
     }
 
     async pickImage() {
+        this.setState({loading: true});
         const picked = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             aspect: [4,3]
         });
 
         if (!picked.cancelled) {
-            this.setState({ image: picked.uri })
+            this.setState({ image: picked.uri, loading: false });
         }
     }
 }
@@ -60,7 +80,7 @@ const sendKudoScreenStyles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
         marginTop: '20%'
     },
@@ -77,12 +97,12 @@ const sendKudoScreenStyles = StyleSheet.create({
         height: 70
     },
     img_preview: {
-        width: 275,
+        width: Dimensions.get('window').width - 20,
         height: 175
     },
     take_photo_btn: {
         height: 45,
-        width: 250,
+        width: Dimensions.get('window').width - 20,
         backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
         borderRadius: 5,
         marginTop: '5%'
