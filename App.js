@@ -3,8 +3,6 @@ import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 import { config } from './data/config';
 import RootNavigator from './navigation/root-navigator';
-// TEST UI
-import SendKudoScreen from './screens/send-kudo-screen';
 
 
 export default class App extends React.Component {
@@ -25,10 +23,9 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<SendKudoScreen name={"John Res"}/>
-			/*<RootNavigator screenProps={{ state: this.state, 
+			<RootNavigator screenProps={{ state: this.state, 
 				setUser: this.setSource, 
-				firebase: this.firebase}} />*/
+				firebase: this.firebase}} />
 		);
 	}
 

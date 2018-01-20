@@ -30,8 +30,11 @@ export default class UserPatch extends Component {
 	}
 
 	sendKudo(reciever) {
-		const { nav } = this.props;
-		nav.navigate('SendKudo');
+		const { nav, usr, firebase } = this.props;
+		nav.navigate('SendKudo', {
+			...usr,
+			firebase
+		});
 	}
 }
 

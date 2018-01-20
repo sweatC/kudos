@@ -17,10 +17,13 @@ export default class SendKudoScreen extends Component {
         super(props);
         this.state = {
             image: null,
-            loading: false
+            loading: false,
+            text: ''
         }
         this.pickImage = this.pickImage.bind(this);
         this.renderCurrentState = this.renderCurrentState.bind(this);
+        this.sendKudo = this.sendKudo.bind(this);
+        this.getFullName = this.getFullName.bind(this);
     }
     render() {
         return (
@@ -42,7 +45,7 @@ export default class SendKudoScreen extends Component {
             <View>
                 <View style={sendKudoScreenStyles.header}>
                     <Image style={sendKudoScreenStyles.img} />
-                    <Text>{this.props.name}</Text>
+                    <Text>{this.getFullName()}</Text>
                 </View>
                 <View style={sendKudoScreenStyles.main}>
                     <Image style={sendKudoScreenStyles.img_preview}
@@ -53,10 +56,12 @@ export default class SendKudoScreen extends Component {
                             Take a Photo</Text>
                     </View>
                     <TextInput multiline={true} numberOfLines={10}
-                        placeholder="Your thankful message" />
+                        placeholder="Your thankful message" 
+                        onChangeText={text => this.setState({text})} />
                     <View style={sendKudoScreenStyles.send_btn}>
                         <Icon name='sc-telegram' type='evilicon'
-                            color='#517fa4' size={48} />
+                            color='#517fa4' size={48}
+                            onPress={() => this.sendKudo()} />
                     </View>
                 </View>
             </View>
@@ -74,6 +79,19 @@ export default class SendKudoScreen extends Component {
             this.setState({ image: picked.uri, loading: false });
         }
     }
+
+    sendKudo() {
+        const { key, firebase } = this.props.navigation.state.params;
+        firebase.database().ref(`${key}/userKudos/`).push({
+            text: this.state.text,
+            img: this.state.image
+        })
+    }
+
+    getFullName() {
+        const { firstName, lastName } = this.props.navigation.state.params;
+        return `${firstName} ${lastName}`;
+    }
 }
 
 const sendKudoScreenStyles = StyleSheet.create({
@@ -81,8 +99,7 @@ const sendKudoScreenStyles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: '20%'
+        alignItems: 'center'
     },
     header: {
         flexDirection: 'row',

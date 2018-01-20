@@ -33,7 +33,8 @@ export default class UsersScreen extends Component {
 	}
 	render() {
 		return (
-			<ListOfUsersPatches patchesData={this.state.users} navigator={this.props.navigation} />
+			<ListOfUsersPatches firebase={this.props.screenProps.state.firebase}
+			patchesData={this.state.users} navigator={this.props.navigation} />
 		);
 	}
 }

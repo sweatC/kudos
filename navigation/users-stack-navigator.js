@@ -15,10 +15,7 @@ const UsersNavigator = StackNavigator({
     SendKudo: {
         screen: SendKudoScreen,
         navigationOptions: {
-            header: null,
-            headerRight: (<View>
-                <Text >Send</Text>
-            </View>)
+            header: null
         }
     }
 });
