@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Icon } from 'react-native-elements';
+import { ImagePicker } from 'expo';
 import {
     StyleSheet,
     Text,
@@ -12,6 +13,10 @@ import {
 export default class SendKudoScreen extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            image: null
+        }
+        this.pickImage = this.pickImage.bind(this);
     }
     render() {
         return (
@@ -20,10 +25,13 @@ export default class SendKudoScreen extends Component {
                     <Image style={sendKudoScreenStyles.img} />
                     <Text>{this.props.name}</Text>
                 </View>
+                <Image style={sendKudoScreenStyles.img_preview}
+                    source={{ uri: this.state.image }} />
                 <View style={sendKudoScreenStyles.main}>
-                    <Image style={sendKudoScreenStyles.img_preview}/>
                     <View style={sendKudoScreenStyles.take_photo_btn}>
-                        <Text style={sendKudoScreenStyles.take_photo_btn_txt}>Take a Photo</Text>
+                        <Text style={sendKudoScreenStyles.take_photo_btn_txt}
+                                onPress={() => this.pickImage()}>
+                         Take a Photo</Text>
                     </View>
                     <TextInput multiline={true} numberOfLines={10}
                      placeholder="Your thankful message" />
@@ -34,6 +42,17 @@ export default class SendKudoScreen extends Component {
                 </View>
             </View>
         );
+    }
+
+    async pickImage() {
+        const picked = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4,3]
+        });
+
+        if (!picked.cancelled) {
+            this.setState({ image: picked.uri })
+        }
     }
 }
 
@@ -58,14 +77,15 @@ const sendKudoScreenStyles = StyleSheet.create({
         height: 70
     },
     img_preview: {
-        width: 250,
-        height: 150
+        width: 275,
+        height: 175
     },
     take_photo_btn: {
         height: 45,
         width: 250,
         backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
         borderRadius: 5,
+        marginTop: '5%'
     },
     take_photo_btn_txt: {
         color: '#fff',
@@ -74,7 +94,7 @@ const sendKudoScreenStyles = StyleSheet.create({
     },
     send_btn: {
         alignItems: 'flex-end',
-        marginTop: '10%'
+        marginTop: '5%'
     }
 });
 
