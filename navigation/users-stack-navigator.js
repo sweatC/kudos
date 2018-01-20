@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import UsersScreen from '../screens/users-screen';
 import SendKudoScreen from '../screens/send-kudo-screen';
@@ -14,7 +15,10 @@ const UsersNavigator = StackNavigator({
     SendKudo: {
         screen: SendKudoScreen,
         navigationOptions: {
-            title: 'Create Kudo'
+            header: null,
+            headerRight: (<View>
+                <Text >Send</Text>
+            </View>)
         }
     }
 });
