@@ -83,11 +83,14 @@ export default class SendKudoScreen extends Component {
 
     sendKudo() {
         const { key, firebase } = this.props.navigation.state.params;
+        const newKudoRef = firebase.database().ref(`users/${key}/userKudos`).push();
         firebase.database().ref(`users/${key}/userKudos`).push({
+            key: newKudoRef.key,
             text: this.state.text,
             img: this.state.image
         })
         firebase.database().ref(`kudos`).push({
+            key: newKudoRef.key,
             text: this.state.text,
             img: this.state.image
         })

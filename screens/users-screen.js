@@ -6,11 +6,6 @@ export default class UsersScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user:{
-				id: props.screenProps.state.id,
-				firstName: props.screenProps.state.firstName,
-				lastName: props.screenProps.state.lastName
-			},
 			users: []
 		}
 	}
