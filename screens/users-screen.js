@@ -18,7 +18,7 @@ export default class UsersScreen extends Component {
 		const { firebase } = this.props.screenProps.state;
 
 		firebase.database()
-			.ref()
+			.ref(`users`)
 			.on('value', snap => {
 				const users = [];
 				snap.forEach( usr => {

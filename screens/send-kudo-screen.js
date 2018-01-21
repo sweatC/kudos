@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'react-native-elements';
 import { ImagePicker } from 'expo';
+import { NavigationActions } from 'react-navigation';
 import {
     StyleSheet,
     Text,
@@ -82,10 +83,18 @@ export default class SendKudoScreen extends Component {
 
     sendKudo() {
         const { key, firebase } = this.props.navigation.state.params;
-        firebase.database().ref(`${key}/userKudos/`).push({
+        firebase.database().ref(`users/${key}/userKudos`).push({
             text: this.state.text,
             img: this.state.image
         })
+        firebase.database().ref(`kudos`).push({
+            text: this.state.text,
+            img: this.state.image
+        })
+        const navigateAction = NavigationActions.navigate({
+            routeName: 'Users'
+        })
+        this.props.navigation.dispatch(navigateAction);
     }
 
     getFullName() {

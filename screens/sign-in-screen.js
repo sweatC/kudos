@@ -34,7 +34,7 @@ export default class SignInScreen extends Component {
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.then(() => {
 				firebase.database()
-					.ref(firebase.auth().currentUser.uid)
+					.ref(`users/${firebase.auth().currentUser.uid}`)
 					.once('value').then(snapshot => {
 						const user =  snapshot.val().userInfo;
 						const { navigation } = this.props;

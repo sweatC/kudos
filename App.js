@@ -31,7 +31,7 @@ export default class App extends React.Component {
 
 	setSource(user) {
 		this.setState({ user });
-		this.firebase.database().ref(user.id).set({
+		this.firebase.database().ref(`users/${user.id}`).set({
 			userInfo: {
 				id: user.id,
 				firstName: user.firstName,
