@@ -5,14 +5,33 @@ import {
 	View,
 	Image
 } from 'react-native';
-import { kudosData } from '../data/test-data';
 import ListOfKudos from '../components/list-of-kudos';
 
 
 export default class ProfileScreen extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			userKudos: []
+		};
 		this.getFullName = this.getFullName.bind(this);
+	}
+	componentWillMount() {
+		const { firebase } = this.props.screenProps.state;
+		const key = firebase.auth().currentUser.uid;
+		firebase.database().ref(`users/${key}/userKudos`).on('value', snap => {
+			const userKudos = [];
+			snap.forEach(kudo => {
+				userKudos.push({
+					key: kudo.val().key,
+					img: {
+						uri: kudo.val().img
+					},
+					text: kudo.val().text
+				})
+			})
+			this.setState({userKudos})
+		})
 	}
 	render() {
 		return (
@@ -23,7 +42,7 @@ export default class ProfileScreen extends Component {
 				</View>
 				<View style={profileScreenStyles.recieved_kudos}>
 					<Text style={profileScreenStyles.recieved_kudos_txt}>Recieved Kudos</Text>
-					<ListOfKudos kudosData={kudosData} />
+					<ListOfKudos kudosData={this.state.userKudos} />
 				</View>
 			</View>
 		);
