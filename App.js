@@ -38,10 +38,7 @@ export default class App extends React.Component {
 				lastName: user.lastName,
 				email: user.email,
 				password: user.password
-			},
-			userKudos: {},
-			kudos: {},
-			users: {}
+			}
 		})
 	}
 }

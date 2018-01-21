@@ -20,7 +20,8 @@ export default class UsersScreen extends Component {
 					users.push({
 						key: usr.val().userInfo.id,
 						firstName: usr.val().userInfo.firstName,
-						lastName: usr.val().userInfo.lastName
+						lastName: usr.val().userInfo.lastName,
+						count: Object.keys(Object(usr.val().userKudos)).length
 					})
 				})
 				this.setState({ users });

@@ -15,7 +15,7 @@ export default class ListOfUsersPatches extends Component {
                     renderItem={({ item }) => <UserPatch firebase={this.props.firebase}
                                         nav={this.props.navigator} usr={item}/*img={item.img}*/
                                         fullName={`${item.firstName} ${item.lastName}`}
-                                        count={20} />}
+                                        count={item.count} />}
                 />
             </View>
         );
