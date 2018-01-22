@@ -29,7 +29,8 @@ const kudoStyles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		backgroundColor: 'lightgrey',
-		padding: '2%'
+		padding: '2%',
+		marginBottom: '5%'
 	},
 	img: {
 		width: Dimensions.get('window').width - 20,

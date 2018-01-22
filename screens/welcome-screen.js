@@ -8,6 +8,39 @@ import {
 
 
 export default class WelcomeScreen extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			firstName: '',
+			lastName: '',
+			email: '',
+			password: ''
+		};
+		this.unsubscriber = null;
+	}
+	componentDidMount() {
+		const { firebase } = this.props.screenProps;
+		this.unsubscriber = firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+			firebase.database()
+				.ref(`users/${firebase.auth().currentUser.uid}`)
+				.once('value').then(snapshot => {
+					const user = snapshot.val().userInfo;
+					const { navigation } = this.props;
+					navigation.navigate('UserProfile',
+						{
+							...user,
+							firebase
+						});
+				});
+			}
+		})
+	}
+	componentWillUnmount() {
+		if (this.unsubscriber) {
+			this.unsubscriber();
+		}
+	}
 	render() {
 		return (
 			<View style={welcomeScreenStyles.container}>

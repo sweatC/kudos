@@ -1,9 +1,9 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 import { config } from './data/config';
 import RootNavigator from './navigation/root-navigator';
-
+import ProfileTabNav from './navigation/profile-tab-navigator';
+import UserProfileScreen from './screens/user-profile-screen';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -21,11 +21,14 @@ export default class App extends React.Component {
 		this.firebase = firebase.initializeApp(config);
 	}
 
+
 	render() {
 		return (
-			<RootNavigator screenProps={{ state: this.state, 
-				setUser: this.setSource, 
-				firebase: this.firebase}} />
+			<RootNavigator screenProps={{
+				state: this.state,
+				setUser: this.setSource,
+				firebase: this.firebase
+			}} />
 		);
 	}
 
