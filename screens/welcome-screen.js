@@ -3,7 +3,8 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Image
+	Image,
+	ActivityIndicator
 } from 'react-native';
 
 
@@ -11,28 +12,18 @@ export default class WelcomeScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			firstName: '',
-			lastName: '',
-			email: '',
-			password: ''
+			user: null,
+			loading: false
 		};
 		this.unsubscriber = null;
+		this.renderCurrentState = this.renderCurrentState.bind(this);
+		this.checkUserAuth = this.checkUserAuth.bind(this);
 	}
 	componentDidMount() {
 		const { firebase } = this.props.screenProps;
 		this.unsubscriber = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
-			firebase.database()
-				.ref(`users/${firebase.auth().currentUser.uid}`)
-				.once('value').then(snapshot => {
-					const user = snapshot.val().userInfo;
-					const { navigation } = this.props;
-					navigation.navigate('UserProfile',
-						{
-							...user,
-							firebase
-						});
-				});
+				this.checkUserAuth();
 			}
 		})
 	}
@@ -44,6 +35,20 @@ export default class WelcomeScreen extends Component {
 	render() {
 		return (
 			<View style={welcomeScreenStyles.container}>
+				{this.renderCurrentState()}
+			</View>
+		);
+	}
+	renderCurrentState() {
+		if(this.state.loading) {
+			return (
+				<View>
+					<ActivityIndicator size='large' color="#0000ff" />
+				</View>
+			)
+		}
+		return(
+			<View>
 				<Image source={require('../img/tnku.jpg')} style={welcomeScreenStyles.img} />
 				<View style={welcomeScreenStyles.text}>
 					<Text style={welcomeScreenStyles.h}>Kudos</Text>
@@ -59,7 +64,22 @@ export default class WelcomeScreen extends Component {
 					>Don't have an account? Sign up</Text>
 				</View>
 			</View>
-		);
+		)
+	}
+	checkUserAuth() {
+		this.setState({ loading: true });
+		const { firebase } = this.props.screenProps;
+		firebase.database()
+			.ref(`users/${firebase.auth().currentUser.uid}`)
+			.once('value').then(snapshot => {
+				const user = snapshot.val().userInfo;
+				const { navigation } = this.props;
+				navigation.navigate('UserProfile',
+					{
+						...user,
+						firebase
+					});
+			});
 	}
 }
 
@@ -102,6 +122,7 @@ const welcomeScreenStyles = StyleSheet.create({
 		width: 250,
 		backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
 		borderRadius: 5,
+		marginLeft: '30%'
 	},
 	btn_txt: {
 		color: '#fff',

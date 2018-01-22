@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { config } from './data/config';
 import RootNavigator from './navigation/root-navigator';
 import ProfileTabNav from './navigation/profile-tab-navigator';
-import UserProfileScreen from './screens/user-profile-screen';
+
 
 export default class App extends React.Component {
 	constructor(props) {
