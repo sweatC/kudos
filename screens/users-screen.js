@@ -8,15 +8,27 @@ export default class UsersScreen extends Component {
 		this.state = {
 			users: []
 		}
+		this.fetchUsers = this.fetchUsers.bind(this);
 	}
 	componentWillMount() {
+		this.fetchUsers();
+	}
+	render() {
+		return (
+			<ListOfUsersPatches firebase={this.props.screenProps.state.firebase}
+			patchesData={this.state.users} navigator={this.props.navigation} 
+			fetchUsers={this.fetchUsers} />
+		);
+	}
+
+	fetchUsers(callback=()=>'') {
 		const { firebase } = this.props.screenProps.state;
 
 		firebase.database()
 			.ref(`users`)
 			.on('value', snap => {
 				const users = [];
-				snap.forEach( usr => {
+				snap.forEach(usr => {
 					users.push({
 						key: usr.val().userInfo.id,
 						firstName: usr.val().userInfo.firstName,
@@ -25,12 +37,7 @@ export default class UsersScreen extends Component {
 					})
 				})
 				this.setState({ users });
+				callback();
 			})
-	}
-	render() {
-		return (
-			<ListOfUsersPatches firebase={this.props.screenProps.state.firebase}
-			patchesData={this.state.users} navigator={this.props.navigation} />
-		);
 	}
 }
