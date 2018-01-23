@@ -9,13 +9,24 @@ export default class ExploreScreen extends Component {
 		this.state = {
 			kudos: []
 		}
+		this.fetchKudos = this.fetchKudos.bind(this);
 	}
 	componentWillMount() {
+		this.fetchKudos();
+	}
+
+	render() {
+		return (
+			<ListOfKudos kudosData={this.state.kudos} fetchKudos={this.fetchKudos} />
+		);
+	}
+
+	fetchKudos(callback=()=> '') {
 		const { firebase } = this.props.screenProps.state;
 
 		firebase.database().ref(`kudos`).on('value', snap => {
 			const kudos = [];
-			snap.forEach( kudo => {
+			snap.forEach(kudo => {
 				kudos.push({
 					key: kudo.val().key,
 					img: {
@@ -24,13 +35,8 @@ export default class ExploreScreen extends Component {
 					text: kudo.val().text
 				})
 			})
-			this.setState({kudos})
+			this.setState({ kudos });
+			callback();
 		})
-	}
-
-	render() {
-		return (
-			<ListOfKudos kudosData={this.state.kudos} />
-		);
 	}
 }
