@@ -10,7 +10,8 @@ import {
     Image,
     TextInput,
     Dimensions,
-    ActivityIndicator
+    ActivityIndicator,
+    Keyboard
 } from 'react-native';
 
 
@@ -20,22 +21,49 @@ export default class SendKudoScreen extends Component {
         this.state = {
             image: null,
             loading: false,
-            text: ''
+            text: '',
+            visibleHeight: Dimensions.get('window').height,
+            imgPreview: null
         }
         this.pickImage = this.pickImage.bind(this);
         this.renderCurrentState = this.renderCurrentState.bind(this);
         this.sendKudo = this.sendKudo.bind(this);
         this.getFullName = this.getFullName.bind(this);
         this.changeTextHandler = this.changeTextHandler.bind(this);
+        this.keyboardDidShow = this.keyboardDidShow.bind(this);
+        this.keyboardDidHide = this.keyboardDidHide.bind(this);
+    }
+    componentWillMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+    }
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+    keyboardDidShow(e) {
+        const newSize = Dimensions.get('window').height - e.endCoordinates.height;
+        this.setState({
+            visibleHeight: newSize,
+            imgPreview: { width: 100, height: 70 }
+        })
+    }
+    keyboardDidHide() {
+        this.setState({
+            visibleHeight: Dimensions.get('window').height,
+            imgPreview: {
+                width: Dimensions.get('window').width - 20,
+                height: 175 
+            }
+        })
     }
     render() {
         return (
-            <View style={sendKudoScreenStyles.container}>
+            <View style={[sendKudoScreenStyles.container, { height: this.state.visibleHeight }]}>
                 {this.renderCurrentState()}
             </View>
         );
     }
-
     renderCurrentState() {
         if(this.state.loading) {
             return(
@@ -51,7 +79,7 @@ export default class SendKudoScreen extends Component {
                     <Text>{this.getFullName()}</Text>
                 </View>
                 <View style={sendKudoScreenStyles.main}>
-                    <Image style={sendKudoScreenStyles.img_preview}
+                    <Image style={[sendKudoScreenStyles.img_preview, this.state.imgPreview]}
                         source={{ uri: this.state.image }} />
                     <View style={sendKudoScreenStyles.take_photo_btn}>
                         <Text style={sendKudoScreenStyles.take_photo_btn_txt}
@@ -63,7 +91,6 @@ export default class SendKudoScreen extends Component {
             </View>
         )
     }
-
     async pickImage() {
         this.setState({loading: true});
         const picked = await ImagePicker.launchImageLibraryAsync({
@@ -79,7 +106,6 @@ export default class SendKudoScreen extends Component {
                 break;
         }
     }
-
     sendKudo() {
         const { key, firebase } = this.props.navigation.state.params;
         const newKudoRef = firebase.database().ref(`users/${key}/userKudos`).push();
@@ -98,11 +124,9 @@ export default class SendKudoScreen extends Component {
         })
         this.props.navigation.dispatch(navigateAction);
     }
-
     changeTextHandler(text) {
         this.setState({ text })
     }
-
     getFullName() {
         const { firstName, lastName } = this.props.navigation.state.params;
         return `${firstName} ${lastName}`;
@@ -129,8 +153,8 @@ const sendKudoScreenStyles = StyleSheet.create({
         height: 70
     },
     img_preview: {
-        width: Dimensions.get('window').width - 20,
-        height: 175
+        width: 100,
+        height: 70
     },
     take_photo_btn: {
         height: 45,
