@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Icon } from 'react-native-elements';
 import { ImagePicker } from 'expo';
 import { NavigationActions } from 'react-navigation';
+import KudoInput from '../components/send-kudo-input';
 import {
     StyleSheet,
     Text,
@@ -25,6 +26,7 @@ export default class SendKudoScreen extends Component {
         this.renderCurrentState = this.renderCurrentState.bind(this);
         this.sendKudo = this.sendKudo.bind(this);
         this.getFullName = this.getFullName.bind(this);
+        this.changeTextHandler = this.changeTextHandler.bind(this);
     }
     render() {
         return (
@@ -56,14 +58,7 @@ export default class SendKudoScreen extends Component {
                             onPress={() => this.pickImage()}>
                             Take a Photo</Text>
                     </View>
-                    <TextInput multiline={true} numberOfLines={10}
-                        placeholder="Your thankful message" 
-                        onChangeText={text => this.setState({text})} />
-                    <View style={sendKudoScreenStyles.send_btn}>
-                        <Icon name='sc-telegram' type='evilicon'
-                            color='#517fa4' size={48}
-                            onPress={() => this.sendKudo()} />
-                    </View>
+                    <KudoInput sendKudo={this.sendKudo} onChangeText={this.changeTextHandler} />
                 </View>
             </View>
         )
@@ -104,6 +99,10 @@ export default class SendKudoScreen extends Component {
         this.props.navigation.dispatch(navigateAction);
     }
 
+    changeTextHandler(text) {
+        this.setState({ text })
+    }
+
     getFullName() {
         const { firstName, lastName } = this.props.navigation.state.params;
         return `${firstName} ${lastName}`;
@@ -114,7 +113,7 @@ const sendKudoScreenStyles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center'
     },
     header: {
@@ -144,10 +143,6 @@ const sendKudoScreenStyles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         marginTop: 12
-    },
-    send_btn: {
-        alignItems: 'flex-end',
-        marginTop: '5%'
     }
 });
 
