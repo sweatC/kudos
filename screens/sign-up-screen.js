@@ -33,76 +33,34 @@ export default class SignUpScreen extends Component {
 			</View>
 		);
 	}
-
-	cFirstName(fName, input) {
-		if (checkFirstName(fName)) {
-			this.fNameInput.props.underlineColorAndroid = 'green';
-			this.setState({ firstName: fName })
-		}
-		this.fNameInput.props.underlineColorAndroid = 'red';
-	}
-
-	cLastName(lName) {
-		if (checkLastName(lName)) {
-			this.setState({ lastName: lName })
-		}
-	}
-
-	cEmail(email) {
-		if (checkEmail(email)) {
-			this.setState({ email: email })
-		}
-	}
-
-	cPassword(pass) {
-		if (checkPassword(pass)) {
-			this.setState({ password: pass })
-		}
-	}
-
 	signUp() {
-		const errStates = [];
-		for (p in this.state) {
-			if (this.state[p] === '') {
-				errStates.push(p);
-			}
-		}
-		if (errStates.length < 2) { // 1 cos loading
-			this.setState({ loading: true });
-			const { firebase, setUser } = this.props.screenProps;
-			firebase.auth()
-				.createUserWithEmailAndPassword(this.state.email, this.state.password)
-				.then(() => {
-					setUser({ ...this.state, 
-						id: firebase.auth().currentUser.uid});
-					const { navigation } = this.props;
-					navigation.navigate('UserProfile',
-					{ ...this.state, firebase });
-				})
-				.catch(error => {
-					Alert.alert(`${error.message}: ${error.code}`);
-				});
-		}
-		else {
-			let checkout = 'Invalid: ';
-			errStates.forEach(err => {
-				switch(err) {
-					case 'firstName':
-						checkout += 'First Name, ';
-						break;
-					case 'lastName':
-						checkout += 'Last Name, ';
-						break;
-					case 'email':
-						checkout += 'Email, ';
-						break;
-					case 'password':
-						checkout += 'Password';
-						break;
-				}
+		this.setState({ loading: true });
+		const { firebase, setUser } = this.props.screenProps;
+		firebase.auth()
+			.createUserWithEmailAndPassword(this.state.email, this.state.password)
+			.then(() => {
+				setUser({ ...this.state, 
+					id: firebase.auth().currentUser.uid});
+				const { navigation } = this.props;
+				navigation.navigate('UserProfile',
+				{ ...this.state, firebase });
 			})
-			Alert.alert(checkout);
-		}
+			.catch(error => {
+				this.setState({ loading: false });
+				switch (error.code) {
+						case "auth/email-already-in-use":
+						Alert.alert("The email is already in use.");
+						break;
+					case "auth/invalid-email":
+						Alert.alert("The specified email is not a valid email.");
+						break;
+					case "auth/invalid-password":
+						Alert.alert("Password is invalid it must contains  at least six characters.");
+						break;
+					default:
+						Alert.alert(`Error: ${error.code.split('/')[1]}`);
+				}
+			});
 	}
 
 	renderCurrentState() {
@@ -119,25 +77,23 @@ export default class SignUpScreen extends Component {
 					<TextInput
 						style={signUpScreenStyles.input}
 						placeholder="First Name"
-						ref={node => this.fNameInput = node}
-						onChangeText={fName => this.cFirstName(fName)}
+						onChangeText={firstName => this.setState({firstName})}
 					/>
 					<TextInput
 						style={signUpScreenStyles.input}
 						placeholder="Last Name"
-						onChangeText={lName => this.cLastName(lName)}
+						onChangeText={lastName => this.setState({lastName})}
 					/>
 					<TextInput
 						style={signUpScreenStyles.input}
 						placeholder="Email"
-						ref={node => this.EmailInput = node}
-						onChangeText={email => this.cEmail(email)}
+						onChangeText={email => this.setState({email})}
 					/>
 					<TextInput
 						secureTextEntry={true}
 						style={signUpScreenStyles.input}
 						placeholder="Password"
-						onChangeText={password => this.cPassword(password)}
+						onChangeText={password => this.setState({password})}
 					/>
 				</View>
 				<View style={signUpScreenStyles.sign}>
