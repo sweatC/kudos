@@ -34,10 +34,12 @@ export default class SignUpScreen extends Component {
 		);
 	}
 
-	cFirstName(fName) {
+	cFirstName(fName, input) {
 		if (checkFirstName(fName)) {
+			this.fNameInput.props.underlineColorAndroid = 'green';
 			this.setState({ firstName: fName })
 		}
+		this.fNameInput.props.underlineColorAndroid = 'red';
 	}
 
 	cLastName(lName) {
@@ -59,14 +61,14 @@ export default class SignUpScreen extends Component {
 	}
 
 	signUp() {
-		this.setState({loading: true});
 		const errStates = [];
 		for (p in this.state) {
-			if (this.state[p] == '') {
+			if (this.state[p] === '') {
 				errStates.push(p);
 			}
 		}
 		if (errStates.length < 2) { // 1 cos loading
+			this.setState({ loading: true });
 			const { firebase, setUser } = this.props.screenProps;
 			firebase.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -82,7 +84,24 @@ export default class SignUpScreen extends Component {
 				});
 		}
 		else {
-			Alert.alert(`Check out ${errStates} fields!`);
+			let checkout = 'Invalid: ';
+			errStates.forEach(err => {
+				switch(err) {
+					case 'firstName':
+						checkout += 'First Name, ';
+						break;
+					case 'lastName':
+						checkout += 'Last Name, ';
+						break;
+					case 'email':
+						checkout += 'Email, ';
+						break;
+					case 'password':
+						checkout += 'Password';
+						break;
+				}
+			})
+			Alert.alert(checkout);
 		}
 	}
 
@@ -100,6 +119,7 @@ export default class SignUpScreen extends Component {
 					<TextInput
 						style={signUpScreenStyles.input}
 						placeholder="First Name"
+						ref={node => this.fNameInput = node}
 						onChangeText={fName => this.cFirstName(fName)}
 					/>
 					<TextInput
@@ -110,6 +130,7 @@ export default class SignUpScreen extends Component {
 					<TextInput
 						style={signUpScreenStyles.input}
 						placeholder="Email"
+						ref={node => this.EmailInput = node}
 						onChangeText={email => this.cEmail(email)}
 					/>
 					<TextInput

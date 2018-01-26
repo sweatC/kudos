@@ -75,9 +75,13 @@ export default class SendKudoScreen extends Component {
             allowsEditing: true,
             aspect: [4,3]
         });
-
-        if (!picked.cancelled) {
-            this.setState({ image: picked.uri, loading: false });
+        switch(picked.cancelled) {
+            case true:
+                this.setState({ loading: false });
+                break;
+            case false:
+                this.setState({ image: picked.uri, loading: false });
+                break;
         }
     }
 
