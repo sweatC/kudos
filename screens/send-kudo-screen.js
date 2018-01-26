@@ -11,7 +11,10 @@ import {
     TextInput,
     Dimensions,
     ActivityIndicator,
-    Keyboard
+    Keyboard,
+    UIManager,
+    LayoutAnimation,
+    Platform
 } from 'react-native';
 
 
@@ -32,6 +35,9 @@ export default class SendKudoScreen extends Component {
         this.changeTextHandler = this.changeTextHandler.bind(this);
         this.keyboardDidShow = this.keyboardDidShow.bind(this);
         this.keyboardDidHide = this.keyboardDidHide.bind(this);
+        if (Platform.OS === 'android') {
+            UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
     }
     componentWillMount() {
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
@@ -43,12 +49,14 @@ export default class SendKudoScreen extends Component {
     }
     keyboardDidShow(e) {
         const newSize = Dimensions.get('window').height - e.endCoordinates.height;
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
         this.setState({
             visibleHeight: newSize,
             imgPreview: { width: 100, height: 70 }
         })
     }
     keyboardDidHide() {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
         this.setState({
             visibleHeight: Dimensions.get('window').height,
             imgPreview: {
