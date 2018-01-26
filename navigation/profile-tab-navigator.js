@@ -17,7 +17,15 @@ const ProfileTabNav = TabNavigator({
 },
 	{
 		tabBarPosition: 'bottom',
-		animationEnabled: true
+		animationEnabled: true,
+		tabBarOptions: {
+			style: {
+				backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
+			},
+			indicatorStyle: {
+				backgroundColor: 'white',
+			}
+		}
 	});
 
 export default ProfileTabNav;
