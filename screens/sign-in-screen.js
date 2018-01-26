@@ -46,7 +46,8 @@ export default class SignInScreen extends Component {
 					});
 			})
 			.catch(error => {
-				Alert.alert(`${error.message}: ${error.code}`);
+				this.setState({loading: false});
+				Alert.alert(`Error: ${error.code.split('/')[1]}`);
 			});
 	}
 	renderCurrentState() {

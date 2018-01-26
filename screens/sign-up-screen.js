@@ -7,12 +7,6 @@ import {
 	Alert,
 	ActivityIndicator
 } from 'react-native';
-import {
-	checkFirstName,
-	checkLastName,
-	checkEmail,
-	checkPassword
-} from '../functions/sign-up-validations';
 
 
 
