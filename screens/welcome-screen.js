@@ -6,6 +6,7 @@ import {
 	Image,
 	ActivityIndicator
 } from 'react-native';
+import { Button } from 'react-native-elements';
 
 
 export default class WelcomeScreen extends Component {
@@ -55,13 +56,20 @@ export default class WelcomeScreen extends Component {
 					<Text style={welcomeScreenStyles.p}>Your small gestures grtitude</Text>
 				</View>
 				<View style={welcomeScreenStyles.sign}>
-					<View style={welcomeScreenStyles.btn}>
-						<Text style={welcomeScreenStyles.btn_txt}
-							onPress={() => this.props.navigation.navigate('SignIn')}>Sign in</Text>
+					<Button
+						buttonStyle={welcomeScreenStyles.btn}
+						large
+						fontFamily='Roboto'
+						iconRight={{ name: 'face', color: '#fff' }}
+						title='Sign in'
+						onPress={() => this.props.navigation.navigate('SignIn')} />
+					<View style={welcomeScreenStyles.bottom_btn}>
+						<Text style={welcomeScreenStyles.bottom_btn_txt}>Don't have an account?</Text>
+						<Text style={welcomeScreenStyles.underlined}
+							onPress={() => this.props.navigation.navigate('SignUp')}>
+							Sign up
+						</Text>
 					</View>
-					<Text style={welcomeScreenStyles.bottom_btn_txt}
-						onPress={() => this.props.navigation.navigate('SignUp')}
-					>Don't have an account? Sign up</Text>
 				</View>
 			</View>
 		)
@@ -118,22 +126,36 @@ const welcomeScreenStyles = StyleSheet.create({
 		marginTop: 15
 	},
 	btn: {
-		height: 45,
-		width: 250,
+		height: '10%',
+		width: '40%',
 		backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
 		borderRadius: 5,
-		marginLeft: '30%'
+		marginLeft: '30%',
+		marginRight: '30%'
 	},
 	btn_txt: {
 		color: '#fff',
 		textAlign: 'center',
 		marginTop: 12
 	},
+	bottom_btn: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		marginTop: 8
+	},
 	bottom_btn_txt: {
 		color: 'hsla(52, 75%, 6%, 0.91)',
 		fontSize: 10,
 		textAlign: 'center',
+		fontFamily: 'Roboto'
+	},
+	underlined: {
+		textDecorationLine: 'underline',
+		color: 'hsla(52, 75%, 6%, 0.91)',
+		fontSize: 10,
+		textAlign: 'center',
 		fontFamily: 'Roboto',
-		marginTop: 7
+		marginLeft: '0.5%'
 	}
 });
