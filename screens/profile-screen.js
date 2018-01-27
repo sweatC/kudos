@@ -3,7 +3,8 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Image
+	Image,
+	Dimensions
 } from 'react-native';
 import ListOfKudos from '../components/list-of-kudos';
 
@@ -24,8 +25,13 @@ export default class ProfileScreen extends Component {
 		return (
 			<View style={profileScreenStyles.container}>
 				<View style={profileScreenStyles.header}>
-					<Image style={profileScreenStyles.img} source={{ uri: 'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg' }} />
-					<Text style={profileScreenStyles.header_txt}>{this.getFullName()}</Text>
+					<View style={profileScreenStyles.img_wrapper}>
+						<Image style={profileScreenStyles.img} 
+						source={{ uri: 'https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg' }} />
+					</View>
+					<View style={profileScreenStyles.txt_wrapper}>
+						<Text style={profileScreenStyles.header_txt}>{this.getFullName()}</Text>
+					</View>
 				</View>
 				<View style={profileScreenStyles.recieved_kudos}>
 					<Text style={profileScreenStyles.recieved_kudos_txt}>Recieved Kudos</Text>
@@ -68,10 +74,24 @@ const profileScreenStyles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	header: {
+		marginTop: '10%',
+		flex: 2,
 		flexDirection: 'row',
-		marginTop: 30,
-		backgroundColor: 'lightgrey',
+		alignItems: 'center'
+	},
+	img_wrapper: {
+		borderRadius: 5,
+		backgroundColor: 'lightgrey'
+	},
+	txt_wrapper: {
+		flexDirection: 'column',
+		justifyContent: 'center',
 		alignItems: 'center',
+		width: 200,
+		height: 100,
+		borderBottomRightRadius: 5,
+		borderTopRightRadius: 5,
+		backgroundColor: 'lightgrey'
 	},
 	header_txt: {
 		fontSize: 19,
@@ -79,17 +99,19 @@ const profileScreenStyles = StyleSheet.create({
 	},
 	recieved_kudos: {
 		flex: 12,
-		marginTop: 7
+		marginTop: '7%'
 	},
 	recieved_kudos_txt: {
-		fontSize: 32,
+		fontSize: 28,
 		fontFamily: 'Roboto',
 		textAlign: 'center',
 		fontWeight: '100'
 	},
 	img: {
 		width: 100,
-		height: 100
+		height: 100,
+		borderTopLeftRadius: 5,
+		borderBottomLeftRadius: 5
 	}
 });
 
