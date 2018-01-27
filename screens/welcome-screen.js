@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-native-elements';
 import {
 	StyleSheet,
 	Text,
@@ -6,7 +7,7 @@ import {
 	Image,
 	ActivityIndicator
 } from 'react-native';
-import { Button } from 'react-native-elements';
+
 
 
 export default class WelcomeScreen extends Component {

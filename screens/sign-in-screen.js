@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FormLabel, FormInput } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import {
 	StyleSheet,
 	Text,
@@ -22,7 +24,7 @@ export default class SignInScreen extends Component {
 	}
 	render() {
 		return (
-			<View style={signInScreenStyles.container}>
+			<View style={this.state.loading ? signInScreenStyles.loader :signInScreenStyles.container}>
 				{this.renderCurrentState()}
 			</View>
 		);
@@ -61,23 +63,24 @@ export default class SignInScreen extends Component {
 		return (
 			<View>
 				<View style={signInScreenStyles.inputs}>
-					<TextInput
-						style={signInScreenStyles.input}
-						placeholder="Email"
-						onChangeText={email => this.setState({ email })}
-					/>
-					<TextInput
-						secureTextEntry={true}
-						style={signInScreenStyles.input}
-						placeholder="Password"
-						onChangeText={password => this.setState({ password })}
-					/>
+					<FormLabel labelStyle={[signInScreenStyles.color, signInScreenStyles.font]}>Email</FormLabel>
+					<FormInput onChangeText={email => this.setState({ email })}
+						underlineColorAndroid='hsla(52, 75%, 6%, 0.91)'
+						inputStyle={[signInScreenStyles.color, signInScreenStyles.font, signInScreenStyles.input]} />
+					<FormLabel labelStyle={[signInScreenStyles.color, signInScreenStyles.font]}>Password</FormLabel>
+					<FormInput secureTextEntry={true}
+						underlineColorAndroid='hsla(52, 75%, 6%, 0.91)'
+						inputStyle={[signInScreenStyles.color, signInScreenStyles.font, signInScreenStyles.input]}
+						onChangeText={password => this.setState({ password })} />
 				</View>
 				<View style={signInScreenStyles.sign}>
-					<View style={signInScreenStyles.btn}>
-						<Text style={signInScreenStyles.btn_txt}
-							onPress={() => this.signIn()}>Sign in</Text>
-					</View>
+					<Button
+						buttonStyle={signInScreenStyles.btn}
+						large
+						fontFamily='Roboto'
+						iconRight={{ name: 'face', color: '#fff' }}
+						title='Sign in'
+						onPress={() => this.signIn()} />
 				</View>
 			</View>
 		)
@@ -88,35 +91,34 @@ const signInScreenStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column',
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
 		alignItems: 'center'
 	},
+	loader: {
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center'	
+	},
 	inputs: {
-		paddingTop: 70
+		paddingTop: '15%'
 	},
 	input: {
-		height: 45,
-		width: 250,
-		fontWeight: '400',
-		fontSize: 28,
-		textAlign: 'center',
-		fontFamily: 'Roboto',
-		color: 'hsla(52, 75%, 6%, 0.91)',
-		marginTop: 5
-	},
-	sign: {
-		flex: 3,
-		marginTop: 15
+		padding: '2%'
 	},
 	btn: {
-		height: 45,
-		width: 250,
+		marginTop: '3%',
+		height: '10%',
+		width: '40%',
 		backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
 		borderRadius: 5,
+		marginLeft: '30%',
+		marginRight: '30%'
 	},
-	btn_txt: {
-		color: '#fff',
-		textAlign: 'center',
-		marginTop: 12
+	color: {
+		color: 'hsla(52, 75%, 6%, 0.91)'
+	},
+	font: {
+		fontFamily:'Roboto'
 	}
 });
