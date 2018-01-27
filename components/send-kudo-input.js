@@ -44,6 +44,7 @@ const kudoInputStyles = StyleSheet.create({
     input: {
         flex: 1,
         marginRight: 16,
-        height: 50
+        height: 50,
+        padding: 5
     }
 })

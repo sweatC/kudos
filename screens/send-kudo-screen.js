@@ -14,7 +14,8 @@ import {
     Keyboard,
     UIManager,
     LayoutAnimation,
-    Platform
+    Platform,
+    Alert
 } from 'react-native';
 
 
@@ -67,7 +68,9 @@ export default class SendKudoScreen extends Component {
     }
     render() {
         return (
-            <View style={[sendKudoScreenStyles.container, { height: this.state.visibleHeight }]}>
+            <View style={this.state.loading ? 
+            sendKudoScreenStyles.loader:
+            [sendKudoScreenStyles.container, { height: this.state.visibleHeight }]}>
                 {this.renderCurrentState()}
             </View>
         );
@@ -76,7 +79,7 @@ export default class SendKudoScreen extends Component {
         if(this.state.loading) {
             return(
                 <View>
-                    <ActivityIndicator size='large' color="#0000ff" />
+                    <ActivityIndicator size='large' color='hsla(52, 75%, 6%, 0.91)' />
                 </View>
             )
         }
@@ -115,22 +118,27 @@ export default class SendKudoScreen extends Component {
         }
     }
     sendKudo() {
-        const { key, firebase } = this.props.navigation.state.params;
-        const newKudoRef = firebase.database().ref(`users/${key}/userKudos`).push();
-        firebase.database().ref(`users/${key}/userKudos`).push({
-            key: newKudoRef.key,
-            text: this.state.text,
-            img: this.state.image
-        })
-        firebase.database().ref(`kudos`).push({
-            key: newKudoRef.key,
-            text: this.state.text,
-            img: this.state.image
-        })
-        const navigateAction = NavigationActions.navigate({
-            routeName: 'Users'
-        })
-        this.props.navigation.dispatch(navigateAction);
+        if(this.state.text !== '' && this.state.image !== null) {
+            const { key, firebase } = this.props.navigation.state.params;
+            const newKudoRef = firebase.database().ref(`users/${key}/userKudos`).push();
+            firebase.database().ref(`users/${key}/userKudos`).push({
+                key: newKudoRef.key,
+                text: this.state.text,
+                img: this.state.image
+            })
+            firebase.database().ref(`kudos`).push({
+                key: newKudoRef.key,
+                text: this.state.text,
+                img: this.state.image
+            })
+            const navigateAction = NavigationActions.navigate({
+                routeName: 'Users'
+            })
+            this.props.navigation.dispatch(navigateAction);
+        }
+        else {
+            Alert.alert('Please type some text and pick an image');
+        }
     }
     changeTextHandler(text) {
         this.setState({ text })
@@ -146,6 +154,12 @@ const sendKudoScreenStyles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    loader: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center'
     },
     header: {
