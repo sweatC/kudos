@@ -23,7 +23,7 @@ export default class ListOfUsersPatches extends Component {
                             onRefresh={this.onRefresh}
                         />
                     } renderItem={({ item }) => <UserPatch firebase={this.props.firebase}
-                                        nav={this.props.navigator} usr={item}/*img={item.img}*/
+                                        nav={this.props.navigator} usr={item}
                                         fullName={`${item.firstName} ${item.lastName}`}
                                         count={item.count} />}
                 />
