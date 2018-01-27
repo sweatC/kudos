@@ -16,7 +16,9 @@ export default class Kudo extends Component {
 		return (
 			<View style={kudoStyles.container}>
 				<Image style={kudoStyles.img} source={this.props.img} />
-				<Text style={kudoStyles.txt}>{this.props.txt}</Text>
+				<View style={kudoStyles.txt_container}>
+					<Text style={kudoStyles.txt}>{this.props.txt}</Text>
+				</View>
 			</View>
 		);
 	}
@@ -28,7 +30,6 @@ const kudoStyles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
-		backgroundColor: 'lightgrey',
 		padding: '2%',
 		marginBottom: '5%'
 	},
@@ -36,8 +37,18 @@ const kudoStyles = StyleSheet.create({
 		width: Dimensions.get('window').width - 20,
 		height: 200
 	},
+	txt_container: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		width: Dimensions.get('window').width - 20,
+		backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
+		padding: '2%',
+		borderBottomLeftRadius: 5,
+		borderBottomRightRadius: 5
+	},
 	txt: {
 		fontSize: 16,
-		fontFamily: 'Roboto'
+		fontFamily: 'Roboto',
+		color: '#fff'
 	}
 });
