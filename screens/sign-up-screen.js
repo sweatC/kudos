@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FormLabel, FormInput } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import {
 	StyleSheet,
 	Text,
@@ -22,7 +24,7 @@ export default class SignUpScreen extends Component {
 	}
 	render() {
 		return (
-			<View style={signUpScreenStyles.container}>
+			<View style={this.state.loading ?signUpScreenStyles.loader :signUpScreenStyles.container}>
 				{this.renderCurrentState()}
 			</View>
 		);
@@ -61,40 +63,39 @@ export default class SignUpScreen extends Component {
 		if (this.state.loading) {
 			return (
 				<View>
-					<ActivityIndicator size='large' color="#0000ff" />
+					<ActivityIndicator size='large' color='hsla(52, 75%, 6%, 0.91)' />
 				</View>
 			)
 		}
 		return(
 			<View>
 				<View style={signUpScreenStyles.inputs}>
-					<TextInput
-						style={signUpScreenStyles.input}
-						placeholder="First Name"
-						onChangeText={firstName => this.setState({firstName})}
-					/>
-					<TextInput
-						style={signUpScreenStyles.input}
-						placeholder="Last Name"
-						onChangeText={lastName => this.setState({lastName})}
-					/>
-					<TextInput
-						style={signUpScreenStyles.input}
-						placeholder="Email"
-						onChangeText={email => this.setState({email})}
-					/>
-					<TextInput
-						secureTextEntry={true}
-						style={signUpScreenStyles.input}
-						placeholder="Password"
-						onChangeText={password => this.setState({password})}
-					/>
+					<FormLabel labelStyle={[signUpScreenStyles.color, signUpScreenStyles.font]}>First Name</FormLabel>
+					<FormInput onChangeText={firstName => this.setState({ firstName })}
+						underlineColorAndroid='hsla(52, 75%, 6%, 0.91)'
+						inputStyle={[signUpScreenStyles.color, signUpScreenStyles.font, signUpScreenStyles.input]} />
+					<FormLabel labelStyle={[signUpScreenStyles.color, signUpScreenStyles.font]}>Last Name</FormLabel>
+					<FormInput underlineColorAndroid='hsla(52, 75%, 6%, 0.91)'
+						inputStyle={[signUpScreenStyles.color, signUpScreenStyles.font, signUpScreenStyles.input]}
+						onChangeText={lastName => this.setState({ lastName })} />
+					<FormLabel labelStyle={[signUpScreenStyles.color, signUpScreenStyles.font]}>Email</FormLabel>
+					<FormInput onChangeText={email => this.setState({ email })}
+						underlineColorAndroid='hsla(52, 75%, 6%, 0.91)'
+						inputStyle={[signUpScreenStyles.color, signUpScreenStyles.font, signUpScreenStyles.input]} />
+					<FormLabel labelStyle={[signUpScreenStyles.color, signUpScreenStyles.font]}>Password</FormLabel>
+					<FormInput secureTextEntry={true}
+						underlineColorAndroid='hsla(52, 75%, 6%, 0.91)'
+						inputStyle={[signUpScreenStyles.color, signUpScreenStyles.font, signUpScreenStyles.input]}
+						onChangeText={password => this.setState({ password })} />
 				</View>
 				<View style={signUpScreenStyles.sign}>
-					<View style={signUpScreenStyles.btn}>
-						<Text style={signUpScreenStyles.btn_txt}
-							onPress={() => this.signUp()}>Sign up</Text>
-					</View>
+					<Button
+						buttonStyle={signUpScreenStyles.btn}
+						large
+						fontFamily='Roboto'
+						iconRight={{ name: 'face', color: '#fff' }}
+						title='Sign Up'
+						onPress={() => this.signUp()} />
 				</View>
 			</View>
 		)
@@ -105,35 +106,34 @@ const signUpScreenStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column',
+		justifyContent: 'flex-start',
+		alignItems: 'center'
+	},
+	loader: {
+		flex: 1,
+		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
 	inputs: {
-		paddingTop: 70
-	},
-	input: {
-		height: 45,
-		width: 250,
-		fontWeight: '400',
-		fontSize: 28,
-		textAlign: 'center',
-		fontFamily: 'Roboto',
-		color: 'hsla(52, 75%, 6%, 0.91)',
-		marginTop: 5
-	},
-	sign: {
-		flex: 3,
-		marginTop: 15
+		paddingTop: '5%'
 	},
 	btn: {
-		height: 45,
-		width: 250,
+		marginTop: '3%',
+		height: '10%',
+		width: '40%',
 		backgroundColor: 'hsla(52, 75%, 6%, 0.91)',
 		borderRadius: 5,
+		marginLeft: '30%',
+		marginRight: '30%'
 	},
-	btn_txt: {
-		color: '#fff',
-		textAlign: 'center',
-		marginTop: 12
+	input: {
+		padding: '2%'
+	},
+	color: {
+		color: 'hsla(52, 75%, 6%, 0.91)'
+	},
+	font: {
+		fontFamily: 'Roboto'
 	}
 });

@@ -56,7 +56,7 @@ export default class SignInScreen extends Component {
 		if (this.state.loading) {
 			return (
 				<View>
-					<ActivityIndicator size='large' color="#0000ff" />
+					<ActivityIndicator size='large' color='hsla(52, 75%, 6%, 0.91)' />
 				</View>
 			)
 		}
