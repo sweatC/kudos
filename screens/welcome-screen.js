@@ -81,6 +81,7 @@ export default class WelcomeScreen extends Component {
 		firebase.database()
 			.ref(`users/${firebase.auth().currentUser.uid}`)
 			.once('value').then(snapshot => {
+				this.setState({ loading: false });
 				const user = snapshot.val().userInfo;
 				const { navigation } = this.props;
 				navigation.navigate('UserProfile',
