@@ -35,6 +35,7 @@ export default class SignUpScreen extends Component {
 		firebase.auth()
 			.createUserWithEmailAndPassword(this.state.email, this.state.password)
 			.then(() => {
+				this.setState({ loading: false });
 				setUser({ ...this.state, 
 					id: firebase.auth().currentUser.uid});
 				const { navigation } = this.props;
